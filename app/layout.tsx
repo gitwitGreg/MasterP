@@ -1,6 +1,9 @@
 import type { Metadata } from "next";
+import { Toaster } from "@/components/ui/toaster"
 import { Inter } from "next/font/google";
+import { ClerkProvider, SignIn, SignedIn, SignedOut, UserButton } from "@clerk/nextjs";
 import "./globals.css";
+import Link from "next/link";
 
 const inter = Inter({ subsets: ["latin"] });
 
@@ -15,8 +18,26 @@ export default function RootLayout({
   children: React.ReactNode;
 }>) {
   return (
-    <html lang="en">
-      <body className={inter.className}>{children}</body>
-    </html>
+    <ClerkProvider>
+      <html lang="en">
+        <body className={inter.className}>
+          <header className="flex justify-between w-full bg-purple-300 p-5">
+            <Link href='/'>
+              <h1 className="text-xl font-bold">MasterP</h1>
+            </Link>
+            <UserButton showName />
+          </header>
+          <SignedOut>
+          <div className="flex-grow flex justify-center items-center h-sceeen w-full h-screen">
+              <SignIn routing='hash'/>
+            </div>
+          </SignedOut>
+          <SignedIn>
+            {children}
+            <Toaster />
+          </SignedIn>
+        </body>
+      </html>
+    </ClerkProvider>
   );
 }
