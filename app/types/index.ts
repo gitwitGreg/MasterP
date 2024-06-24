@@ -4,6 +4,12 @@ export interface Event {
     id: string,
     test: boolean,
     url: string,
+    products: {
+        id: string,
+        name: string,
+        type: string,
+        url: string
+    }[],
     local: string,
     generalInfo: {
         childRule: string,
