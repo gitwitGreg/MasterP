@@ -21,7 +21,7 @@ export default function RootLayout({
     <ClerkProvider>
       <html lang="en">
         <body className={inter.className}>
-          <header className="flex justify-between w-full bg-purple-300 p-5">
+          <header className="flex justify-between w-full bg-black text-white p-5">
             <Link href='/'>
               <h1 className="text-xl font-bold">MasterP</h1>
             </Link>

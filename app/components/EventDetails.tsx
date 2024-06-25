@@ -25,7 +25,7 @@ const EventDetails = ({event}: {event: Event}) => {
 
     const [err, setErr] = useState();
 
-    const { seatmap } = useGetSeatMap(event.seatmap.staticUrl);
+    const { seatmap } = useGetSeatMap(event.seatmap? event.seatmap.staticUrl : undefined);
 
     const { toast } = useToast()
 
@@ -156,7 +156,7 @@ const EventDetails = ({event}: {event: Event}) => {
 
             <div className='flex gap-4 w-auto h-auto'>
 
-                <img src={event.images[1].url} className='h-[150px] w-[300px] object-fit' />
+                <img src={event.images? event.images[0].url : ''} className='h-[150px] w-[300px] object-cover' />
 
                 <div className='flex flex-col gap-5 w-auto h-auto'>
 
@@ -195,14 +195,11 @@ const EventDetails = ({event}: {event: Event}) => {
 
             <p className='text-black text underline text-xl cursor-pointer'> Event</p>
 
-
         </div>
 
         <div className='h-screen w-full bg-gray-50 p-5 flex flex-col gap-8'>
 
             <h1 className='text-2xl font-bold text-black mt-4'>Events</h1>
-
-            <h1>{}</h1>
 
             <div className='w-[70%] h-auto p-3 gap-2 bg-white border-gray-50 border rounded-md'>
 
@@ -267,7 +264,7 @@ const EventDetails = ({event}: {event: Event}) => {
                             }
 
                         }}>
-                            <ShoppingCartIcon />
+                            <ShoppingCartIcon className='hover:text-white ease-in'/>
 
                         </Link>
 
@@ -279,33 +276,62 @@ const EventDetails = ({event}: {event: Event}) => {
 
                     <SellIcon/>
 
-                    <p>${event.priceRanges[0].min} - ${event.priceRanges[0].max}</p>
+                    {event.priceRanges && event.priceRanges.length > 0 ? (
+
+                        <p>${event.priceRanges[0].min} - ${event.priceRanges[0].max}</p>
+
+                    ) : (
+
+                        <p>No price range available</p>
+
+                    )}
+
 
                 </div>
 
             </div>
 
-            <div className=' bg-white w-full h-auto p-5 gap-5 flex flex-col overflow-scroll'>
-                {event.products.map((varitation) => (
-                    <Link href={varitation.url} key={varitation.id}>
-                        <div className='w-full h-auto border p-5 flex flex-col' >
-                            <p className='font-bold'>{varitation.name}</p>
-                            <p className='text-gray-500'>{varitation.type}</p>
-                            <p> Provider: Live nation</p>
-                        </div>
-                    </Link>
-                ))}
-            </div>
+            {event.products && (
+
+                <div className=' bg-white w-full h-auto p-5 gap-5 flex flex-col overflow-scroll'>
+
+                    {event.products.map((varitation) => (
+
+                        <Link href={varitation.url} key={varitation.id}>
+
+                            <div className='w-full h-auto border p-5 flex flex-col' >
+
+                                <p className='font-bold'>{varitation.name}</p>
+
+                                <p className='text-gray-500'>{varitation.type}</p>
+
+                                <p> Provider: Live nation</p>
+
+                            </div>
+
+                        </Link>
+
+                    ))}
+
+                </div>
+            )}
 
         </div>
 
         {seatmap && (
-                    <div className='w-full h-auto bg-white p-5 border border-gray-200 rounded-md'>
-                        <h2 className='text-xl font-bold mb-4'>Seat Map</h2>
-                        <div className='flex justify-center'>
-                            <img src={seatmap} alt='Seat Map' className='max-w-full h-auto' />
-                        </div>
-                    </div>
+
+            <div className='w-full h-auto bg-white p-5 border border-gray-200 rounded-md'>
+
+                <h2 className='text-xl font-bold mb-4'>Seat Map</h2>
+
+                <div className='flex justify-center'>
+
+                    <img src={seatmap} alt='Seat Map' className='max-w-full h-auto' />
+
+                </div>
+
+            </div>
+
         )}
 
     </div>
