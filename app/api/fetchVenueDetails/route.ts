@@ -1,5 +1,11 @@
 import { NextResponse, NextRequest } from "next/server";
 
+/**
+ * 
+ * @param req string object with event id
+ * @returns  - json object with event details
+ */
+
 export async function POST (req: NextRequest) {
 
     /** Convert request to json */

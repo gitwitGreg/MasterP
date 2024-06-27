@@ -29,7 +29,6 @@ const EventDetails = ({event}: {event: Event}) => {
 
     const { toast } = useToast()
 
-
     useEffect(() => {
         setIsFavorite(isFavorited);
     },[isFavorited]);
