@@ -4,6 +4,7 @@ import { Inter } from "next/font/google";
 import { ClerkProvider, SignIn, SignedIn, SignedOut, UserButton } from "@clerk/nextjs";
 import "./globals.css";
 import Link from "next/link";
+import { DataProvider } from "./context/DataProvider";
 
 const inter = Inter({ subsets: ["latin"] });
 
@@ -33,8 +34,10 @@ export default function RootLayout({
             </div>
           </SignedOut>
           <SignedIn>
-            {children}
-            <Toaster />
+            <DataProvider>
+              {children}
+              <Toaster />
+            </DataProvider>
           </SignedIn>
         </body>
       </html>

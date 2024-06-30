@@ -3,6 +3,8 @@
 import { Button } from "@mui/material";
 import { useState } from "react"
 import { useToast } from '@/components/ui/use-toast';
+import { useRouter } from 'next/navigation'
+import { useData } from "../context/DataProvider";
 
 const Search = () => {
 
@@ -12,7 +14,13 @@ const Search = () => {
 
   const [searchResults, setSearchResults] = useState('');
 
-  const { toast } = useToast()
+  const [err, setErr] = useState<string | undefined>('');
+
+  const { toast } = useToast();
+
+  const { setData } = useData();
+
+  const router  = useRouter();
 
   const searchPreset = async(searchType: string) => {
 
@@ -40,9 +48,9 @@ const Search = () => {
 
       }
 
-      const eventList = await response.json();
+      const eventList: Event[] | undefined = await response.json();
 
-      setSearchResults(eventList);
+      setData(eventList);
 
     }catch(error){
 
@@ -97,11 +105,16 @@ const Search = () => {
         return;
       }
 
-      const eventList = await response.json();
+      const eventList: Event[] | undefined = await response.json();
 
-      setSearchResults(eventList);
+      setData(eventList);
+
+      router.push('/SearchResults')
 
     }catch(error){
+
+      console.log(error);
+
 
     }
   
