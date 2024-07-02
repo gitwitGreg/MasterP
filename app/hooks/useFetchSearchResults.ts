@@ -7,24 +7,24 @@ export default function useFetchSearchResults() {
 
     const [foundData, setFoundData] = useState<Event[] | undefined>(); 
 
-    const getSearchResults = () => {
+    const { data } = useData();
 
-        const { data } = useData();
+    useEffect(() => {
 
-        if(!data){
+        if(data){
 
-            console.log('we didnt pass the data before routing');
+            setFoundData(data);
 
-            return undefined;
+        }else{
+
+            setFoundData(undefined);
+            
+            console.log('unable to find passed search context');
 
         }
 
-        setFoundData(data);
-    }
-
-    useEffect(() => {
-        getSearchResults();
-    },[])
+    },[data]);
 
     return {foundData}  
+
 }

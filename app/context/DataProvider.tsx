@@ -10,7 +10,7 @@ interface SearchEventContextType {
 
 const searchEventContext = createContext<SearchEventContextType | undefined>(undefined);
 
-export function DataProvider({children}: {children: ReactNode}) {
+export const DataProvider = ({children}: {children: ReactNode}) =>  {
 
     const [data, setData] = useState<Event[] | undefined>(undefined);
 
@@ -23,7 +23,7 @@ export function DataProvider({children}: {children: ReactNode}) {
     )
 }
 
-export function useData(){
+export const useData = () => {
 
     const context = useContext(searchEventContext);
 
