@@ -1,7 +1,7 @@
 'use client'
 
 import React, { useEffect, useState } from 'react'
-import { Event, FavoritedEvent, FavoritedInfo } from '../types'
+import { TMEvent, FavoritedEvent, FavoritedInfo } from '../types'
 import FavoriteBorderIcon from '@mui/icons-material/FavoriteBorder';
 import NearMeIcon from '@mui/icons-material/NearMe';
 import CalendarMonthIcon from '@mui/icons-material/CalendarMonth';
@@ -15,7 +15,7 @@ import useGetSeatMap from '../hooks/useGetSeatMap';
 import { useToast } from '@/components/ui/use-toast';
 import SellIcon from '@mui/icons-material/Sell';
 
-const EventDetails = ({event}: {event: Event}) => {
+const EventDetails = ({event}: {event: TMEvent}) => {
 
     console.log(event);
 

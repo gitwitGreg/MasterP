@@ -2,12 +2,12 @@
 
 import { useEffect, useState } from 'react';
 import useFindUserLocation from '../hooks/useFindUserLocation'
-import { Coordinates, Event } from '../types';
+import { Coordinates, TMEvent } from '../types';
 import { EventDisplay } from './EventDisplay';
 
 const Closest = () => {
 
-  const [events, setEvents] = useState <Event[] | undefined>()
+  const [events, setEvents] = useState <TMEvent[] | undefined>()
 
   const {coordinates} = useFindUserLocation();
 
@@ -42,7 +42,7 @@ const Closest = () => {
 
       }
 
-      const events: {events: Event[]} = await response.json();
+      const events: {events: TMEvent[]} = await response.json();
 
       setEvents(events.events);
 

@@ -2,10 +2,11 @@
 
 import { useData } from "../context/DataProvider"
 import { useEffect, useState } from "react"
+import { TMEvent } from "../types";
 
 export default function useFetchSearchResults() {
 
-    const [foundData, setFoundData] = useState<Event[] | undefined>(); 
+    const [foundData, setFoundData] = useState< TMEvent[] | undefined>(); 
 
     const { data } = useData();
 

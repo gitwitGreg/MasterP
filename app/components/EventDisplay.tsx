@@ -1,4 +1,4 @@
-import { Event } from "../types";
+import { TMEvent } from "../types";
 import { TailSpin } from 'react-loader-spinner';
 import {
     Carousel,
@@ -13,7 +13,7 @@ import Link from "next/link";
   
 
 
-export const EventDisplay = ({events}: {events: Event[] | undefined}) => {
+export const EventDisplay = ({events}: {events: TMEvent[] | undefined}) => {
 
     if(!events){
         

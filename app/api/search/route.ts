@@ -35,8 +35,6 @@ export async function POST(req: NextRequest){
         /** Acess events of response */
         const events = respObj._embedded.events;
 
-        console.log('we are about to retrun search results back to client');
-
         /** Return array of events */
         return NextResponse.json(events);
 

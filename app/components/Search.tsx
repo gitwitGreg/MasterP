@@ -5,14 +5,13 @@ import { useState } from "react"
 import { useToast } from '@/components/ui/use-toast';
 import { useRouter } from 'next/navigation'
 import { useData } from "../context/DataProvider";
+import { TMEvent } from "../types";
 
 const Search = () => {
 
   const [searchTerm, setSearchTerm] = useState<string>('');
 
   const types = ['Concerts', 'Sports', 'Arts', 'Theater&Comedy', 'Family'];
-
-  const [searchResults, setSearchResults] = useState('');
 
   const [err, setErr] = useState<string | undefined>('');
 
@@ -48,9 +47,11 @@ const Search = () => {
 
       }
 
-      const eventList: Event[] | undefined = await response.json();
+      const eventList: TMEvent[] | undefined = await response.json();
 
       setData(eventList);
+
+      router.push('/SearchResults');
 
     }catch(error){
 
@@ -105,7 +106,7 @@ const Search = () => {
         return;
       }
 
-      const eventList: Event[] | undefined = await response.json();
+      const eventList: TMEvent[] | undefined = await response.json();
 
       setData(eventList);
 

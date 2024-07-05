@@ -1,18 +1,19 @@
 'use client'
 
 import { createContext, useState, useContext, ReactNode, SetStateAction, Dispatch } from 'react';
+import { TMEvent } from '../types';
 
 
 interface SearchEventContextType {
-    data: Event[] | undefined;
-    setData: Dispatch<SetStateAction<Event[] | undefined>>;
+    data: TMEvent[] | undefined;
+    setData: Dispatch<SetStateAction<TMEvent[] | undefined>>;
 }
 
 const searchEventContext = createContext<SearchEventContextType | undefined>(undefined);
 
 export const DataProvider = ({children}: {children: ReactNode}) =>  {
 
-    const [data, setData] = useState<Event[] | undefined>(undefined);
+    const [data, setData] = useState<TMEvent[] | undefined>(undefined);
 
     return(
 
