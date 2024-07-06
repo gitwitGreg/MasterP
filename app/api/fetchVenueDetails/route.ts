@@ -24,9 +24,9 @@ export async function POST (req: NextRequest) {
 
             const error = await response.json();
 
-            console.log(error);
+            console.log(error.detail);
 
-            return NextResponse.json({error: error});
+            return NextResponse.json({error: error.detail});
         }
 
         /** Convert resposne to json object */

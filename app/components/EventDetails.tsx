@@ -5,7 +5,6 @@ import { TMEvent, FavoritedEvent, FavoritedInfo } from '../types'
 import FavoriteBorderIcon from '@mui/icons-material/FavoriteBorder';
 import NearMeIcon from '@mui/icons-material/NearMe';
 import CalendarMonthIcon from '@mui/icons-material/CalendarMonth';
-import { Button } from '@mui/material';
 import useGetFavoriteEvents from '../hooks/useGetFavoriteEvents';
 import { convertTime } from '../helpers';
 import ErrorOutlineIcon from '@mui/icons-material/ErrorOutline';
@@ -149,7 +148,8 @@ const EventDetails = ({event}: {event: TMEvent}) => {
 
     <div className='w-full h-screen flex flex-col gap-2'>
 
-        <div style={{ backgroundImage: `url(${event.images[0].url})` }} className='h-[40%] w-full p-16'>
+        <div style={{ backgroundImage: `url(${event.images[0].url})` }}
+        className='h-[40%] w-full p-16 bg-no-repeat bg-cover'>
 
             <p className='mb-4 text-sm text-white'>Home/Event/{event.name}</p>
 
@@ -206,7 +206,7 @@ const EventDetails = ({event}: {event: TMEvent}) => {
 
                     <NearMeIcon />
 
-                    <p>{event._embedded.venues[0].name}</p>
+                    <p>{event?._embedded?.venues[0]?.name || 'No venue information yet'}</p>
 
                 </div>
 
@@ -244,7 +244,7 @@ const EventDetails = ({event}: {event: TMEvent}) => {
                         
                         <NearMeIcon />
 
-                        <p>{event._embedded.venues[0].name}</p>
+                        <p>{event?._embedded?.venues[0]?.name || 'No venue information yet'}</p>
 
                     </div>
 
@@ -258,7 +258,7 @@ const EventDetails = ({event}: {event: TMEvent}) => {
 
                                 eventId: event.id,
 
-                                venueId: event._embedded.venues[0].id,
+                                venueId: event?._embedded?.venues[0]?.id,
 
                             }
 

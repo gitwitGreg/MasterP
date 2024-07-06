@@ -32,6 +32,14 @@ export async function POST(req: NextRequest){
         /** Convert response to json */
         const respObj = await response.json();
 
+        /** Handle cases where there is no event list */
+        if(!respObj._embedded){
+
+            console.log('missing embedded info')
+
+            return NextResponse.json({error: 'missing embedded info'});
+        }
+
         /** Acess events of response */
         const events = respObj._embedded.events;
 

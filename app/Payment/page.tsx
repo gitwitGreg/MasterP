@@ -9,6 +9,10 @@ export default function Payment(queryObj : queryObj) {
 
     const { venueDetails } = useGetVenueDetails(queryObj.searchParams.venueId);
 
+    if(venueDetails){
+        console.log('ven details', venueDetails);
+    }
+
     return(
         <div>
             Heyy

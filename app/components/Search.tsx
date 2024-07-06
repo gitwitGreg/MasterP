@@ -13,8 +13,6 @@ const Search = () => {
 
   const types = ['Concerts', 'Sports', 'Arts', 'Theater&Comedy', 'Family'];
 
-  const [err, setErr] = useState<string | undefined>('');
-
   const { toast } = useToast();
 
   const { setData } = useData();
@@ -103,19 +101,39 @@ const Search = () => {
 
         console.log(errorObj.error);
 
+        toast({
+
+          title: 'Error',
+
+          description: errorObj.error
+
+        });
+
         return;
       }
 
       const eventList: TMEvent[] | undefined = await response.json();
 
+      if(!eventList?.length){
+
+        toast({
+          title: 'Error',
+          description: 'Invalid search. Try again'
+        });
+
+        setSearchTerm("");
+
+        return;
+      }
+
+
       setData(eventList);
 
-      router.push('/SearchResults')
+      router.push('/SearchResults');
 
     }catch(error){
 
       console.log(error);
-
 
     }
   
@@ -123,9 +141,9 @@ const Search = () => {
 
   return (
 
-    <div className="w-full bg-purple-400 rounded-lg p-16 flex flex-col gap-4">
+    <div className="w-full bg-black px-4  pb-4 rounded-lg p-2 flex flex-col gap-4">
       
-      <div className="flex gap-5 w-[70%] text-white justify-between px-6">
+      <div className="flex gap-5 w-[70%] justify-between px-6">
 
         {types.map((eventType) => (
 

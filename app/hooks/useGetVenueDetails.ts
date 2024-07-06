@@ -4,7 +4,11 @@ import { useState, useEffect } from "react"
 
 export default function useGetVenueDetails(venueId: string) {
 
-    const [venueDetails, setvenueDetails] = useState();
+    const [venueDetails, setVenueDetails] = useState<any>();
+
+    if(!venueId){
+        setVenueDetails({})
+    }
 
     const fetchVenueDetails = async() => {
     
@@ -34,7 +38,7 @@ export default function useGetVenueDetails(venueId: string) {
 
             const eventObj = await response.json();
 
-            setvenueDetails(eventObj);
+            setVenueDetails(eventObj);
 
         }catch(error){
 

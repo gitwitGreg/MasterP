@@ -48,7 +48,7 @@ const SearchResultsDisplay = () => {
             
           </h1>
 
-          {foundData[0].images && (
+          {foundData[0]?.images && (
             <img 
             src={foundData[2].images[5].url}
   
@@ -58,7 +58,7 @@ const SearchResultsDisplay = () => {
 
           <p>{}</p>
 
-          <h2 className='font-bold'>{foundData[0].name}</h2>
+          <h2 className='font-bold'>{foundData[0]?.name}</h2>
 
         </div>
 
@@ -77,11 +77,13 @@ const SearchResultsDisplay = () => {
                   eventId: event.id,
                 }
 
-              }}>
+              }} className='flex items-center p-5'>
 
-                <div key={event.id} className='flex gap-4 border-b p-5 items-center'>
+                <p className='font-semibold'>{convertDate(event.dates.start.localDate)}</p>
 
-                  <p className='font-semibold'>{convertDate(event.dates.start.localDate)}</p>
+                <div key={event.id} className='flex gap-4 border-b p-10 items-center w-full'>
+
+                  
 
                   <div className='flex flex-col'>
 
@@ -89,27 +91,52 @@ const SearchResultsDisplay = () => {
 
                     <p className='text-lg'>{event.name}</p>
 
-                    <p>{event._embedded.venues[0].city.name}</p>
 
-                    <p className='text-gray-400'>{event._embedded.venues[0].address.line1}</p>
+                    {event._embedded && (
+                      <>
 
-                    <p className='text-gray-400'>{event._embedded.venues[0].name}</p>
+                      <p>{event._embedded.venues[0].city?.name || 'No city name yet'}</p>
+
+                      <p className='text-gray-400'>{event._embedded.venues[0]?.address?.line1 || 'No city name yet'}</p>
+
+                      <p className='text-gray-400'>{event._embedded.venues[0]?.name || 'No city name yet'}</p>
+
+                      {event.dates.start.localTime && (
+                        <p>{convertTime(event?.dates?.start?.localTime) || 'No Time yet'}</p>
+                      )}
+
+                      </>
+
+                    )}
+
+                    {!event._embedded && ((
+                      <div>
+                        <p>{'Missing adress details'}</p>
+
+                        <p>{convertTime(event.dates.start.localTime)}</p>
+
+                        <p>{event.dates.timezone}</p>
+                      </div>
+                    ))}
 
                   </div>    
-
-                  <DoubleArrowIcon className='ml-[20%]'/>
 
                 </div>
 
               </Link>
 
             ))}
+
           </div>
+
         </div>
 
       </div>
+
     </section>
+
   )
+
 }
 
 export default SearchResultsDisplay
