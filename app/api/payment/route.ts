@@ -2,11 +2,15 @@ import { NextResponse, NextRequest } from "next/server";
 
 const stripe = require('stripe')(process.env.STRIPE_SECRET_KEY);
 
-export async function POST(req: NextRequest) {
+export async function POST (req: NextRequest) {
 
     try{
 
+        console.log('made it to api');
+
         const { amount } = await req.json();
+
+        console.log(amount);
 
         const paymentIntent = await stripe.paymentIntents.create({
 

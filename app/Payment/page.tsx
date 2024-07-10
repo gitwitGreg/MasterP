@@ -18,13 +18,10 @@ export default function Payment(queryObj : queryObj) {
         throw Error("Missing stripe publishable name");
     }
 
+
     const stripePromise = loadStripe(process.env.NEXT_PUBLIC_STRIPE_PUBLISHABLE_KEY);
 
     const { venueDetails } = useGetVenueDetails(queryObj.searchParams.venueId);
-
-    if(venueDetails){
-        console.log('ven details', venueDetails);
-    }
 
     return(
         <Elements 

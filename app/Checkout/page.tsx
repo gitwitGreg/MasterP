@@ -12,6 +12,8 @@ import { convertToSubcurrency } from "../helpers"
 
 export default function Checkout({amount}: {amount: number}) {
 
+    console.log(amount);
+
     const stripe = useStripe();
 
     const elements = useElements();
@@ -24,19 +26,27 @@ export default function Checkout({amount}: {amount: number}) {
 
     const makePaymentIntent = async() => {
 
+        console.log("making api call");
+
         try{
 
             const response = await fetch('/api/payment', {
+
+                method: 'POST',
 
                 headers: {
                     'Content-Type': 'application/json'
                 },
     
-                body: JSON.stringify(/**amount*/ 1)
+                body: JSON.stringify({
+                    amount: convertToSubcurrency(amount)
+                })
             })
 
             if(!response.ok){
                 const error = await response.json();
+
+                console.log('we had a problem!!!!');
 
                 console.log(error);
 
@@ -44,6 +54,8 @@ export default function Checkout({amount}: {amount: number}) {
             }
 
             const resObj = await response.json();
+
+            console.log('we made it to success block')
 
             setClientsecret(resObj.clientSecret);
 
@@ -57,13 +69,15 @@ export default function Checkout({amount}: {amount: number}) {
 
     useEffect(() => {
 
+        console.log("tryint to make payment internt");
+
         makePaymentIntent()
 
     },[/**amount */])
 
     return (
         <form>
-            {clientSecret && <PaymentElement/>}
+            {clientSecret && <PaymentElement />}
         </form>
     )
 }
