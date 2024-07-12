@@ -148,7 +148,7 @@ const EventDetails = ({event}: {event: TMEvent}) => {
 
     <div className='w-full h-screen flex flex-col gap-2'>
 
-        <div style={{ backgroundImage: `url(${event.images[0].url})` }}
+        <div style={{ backgroundImage: `url(${event.images[0].url})` || '' }}
         className='h-[40%] w-full p-16 bg-no-repeat bg-cover'>
 
             <p className='mb-4 text-sm text-white'>Home/Event/{event.name}</p>

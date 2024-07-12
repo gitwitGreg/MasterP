@@ -43,7 +43,7 @@ const SearchResultsDisplay = () => {
 
           <h1 className='text-xl font-bold flex gap-1'>
 
-            <h1 className='underline underline-offset-4'>Top</h1>
+            <p className='underline underline-offset-4'>Top</p>
             Result
             
           </h1>

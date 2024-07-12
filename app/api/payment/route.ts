@@ -6,11 +6,7 @@ export async function POST (req: NextRequest) {
 
     try{
 
-        console.log('made it to api');
-
         const { amount } = await req.json();
-
-        console.log(amount);
 
         const paymentIntent = await stripe.paymentIntents.create({
 
@@ -22,7 +18,9 @@ export async function POST (req: NextRequest) {
 
         });
 
-        return NextResponse.json({clientSecret: paymentIntent});
+        console.log(paymentIntent);
+
+        return NextResponse.json({clientSecret: paymentIntent.client_secret});
 
     }catch(error){
 

@@ -12,26 +12,51 @@ import { loadStripe } from "@stripe/stripe-js";
 
 
 
+if(!process.env.NEXT_PUBLIC_STRIPE_PUBLISHABLE_KEY){
+    throw Error("Missing stripe publishable name");
+}
+
+const stripePromise = loadStripe(process.env.NEXT_PUBLIC_STRIPE_PUBLISHABLE_KEY);
+
+
 export default function Payment(queryObj : queryObj) {
 
-    if(!process.env.NEXT_PUBLIC_STRIPE_PUBLISHABLE_KEY){
-        throw Error("Missing stripe publishable name");
-    }
+    useEffect(() => {
 
+        const logStripe = async () => {
 
-    const stripePromise = loadStripe(process.env.NEXT_PUBLIC_STRIPE_PUBLISHABLE_KEY);
+            try {
+
+                const stripe = await stripePromise;
+
+                console.log('Stripe Object:', stripe);
+
+            } catch (error) {
+
+                console.error('Error loading Stripe:', error);
+
+            }
+
+        };
+
+        logStripe();
+        
+    }, [stripePromise]);
 
     const { venueDetails } = useGetVenueDetails(queryObj.searchParams.venueId);
 
     return(
-        <Elements 
-        stripe={stripePromise}
-        options={{
-            mode: 'payment',
-            amount: convertToSubcurrency(41.00),
-            currency: 'usd'
-        }}>
-            <Checkout amount={100}/>
-        </Elements>
+        <section className="h-auto w-full p-10 tiems-center flex justify-center">
+            <Elements 
+            stripe={stripePromise}
+            options={{
+                mode:  'payment',
+                amount: convertToSubcurrency(10.00),
+                currency: 'usd',
+                
+            }}>
+                <Checkout amount={100}/>
+            </Elements>
+        </section>
     )
 }

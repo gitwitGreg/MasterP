@@ -1,6 +1,6 @@
 'use client'
 
-import { useEffect, useState} from "react"
+import React, { useEffect, useState} from "react"
 
 import {
     useStripe,
@@ -9,10 +9,11 @@ import {
 } from '@stripe/react-stripe-js'
 
 import { convertToSubcurrency } from "../helpers"
+import { error } from "console";
+import Button from "@mui/material/Button";
+import { TailSpin } from "react-loader-spinner";
 
 export default function Checkout({amount}: {amount: number}) {
-
-    console.log(amount);
 
     const stripe = useStripe();
 
@@ -22,11 +23,10 @@ export default function Checkout({amount}: {amount: number}) {
 
     const [clientSecret, setClientsecret] = useState('');
 
-    const [loading, setIsLoading] = useState(false);
+
+    const [loading, setLoading] = useState(false);
 
     const makePaymentIntent = async() => {
-
-        console.log("making api call");
 
         try{
 
@@ -46,16 +46,12 @@ export default function Checkout({amount}: {amount: number}) {
             if(!response.ok){
                 const error = await response.json();
 
-                console.log('we had a problem!!!!');
-
                 console.log(error);
 
                 return;
             }
 
             const resObj = await response.json();
-
-            console.log('we made it to success block')
 
             setClientsecret(resObj.clientSecret);
 
@@ -69,15 +65,109 @@ export default function Checkout({amount}: {amount: number}) {
 
     useEffect(() => {
 
-        console.log("tryint to make payment internt");
-
         makePaymentIntent()
 
-    },[/**amount */])
+    },[amount])
+
+
+    const handleSubmit = async(e: React.FormEvent<HTMLFormElement>) => {
+
+        e.preventDefault();
+
+        console.log('after prevent default');
+
+        try{
+
+            if(!stripe || !elements){
+                return;
+            }
+    
+            setLoading(true);
+
+    
+            const {error: submitError } = await elements.submit();
+
+            console.log(submitError?.message);
+
+
+            if(submitError){
+
+                setErr(submitError.message);
+
+                setLoading(false);
+
+                return;
+            }
+
+
+            const {error} = await stripe.confirmPayment({
+
+                elements,
+
+                clientSecret,
+
+                confirmParams: {
+
+                    return_url: `http://www.localhost:3000/confirm?amount=${amount}`
+                }
+
+            });
+
+            if(error){
+
+                console.log('confirm error: ', error?.message);
+
+                setErr(error.message);
+
+            }else{
+
+                setLoading(false);
+
+            }
+
+        }catch(error){
+
+            console.log(error);
+
+            setErr('There was a problem with the payment. Please try again');
+
+        }
+    }
+
+
+    if(!stripe || !elements || !clientSecret){
+
+        return (
+            
+            <div className="h-screen w-full items-center flex justify-center">
+
+                <TailSpin
+                height="200"
+                width="200"
+                color="orange"
+                ariaLabel="loading"
+                />
+
+            </div>
+
+        )
+
+    }
 
     return (
-        <form>
-            {clientSecret && <PaymentElement />}
+        <form 
+        className="w-full bg-black p-14 p-auto overflow-y-auto rounded-xl flex flex-col gap-6 text-black"
+        onSubmit={handleSubmit}>
+
+            {clientSecret && <PaymentElement/>}
+
+            <Button
+            disabled={!stripe || loading} 
+            type="submit"
+            style={{background: 'white'}}>
+                {!loading? `pay $${amount}` : 'Proccessing'}
+            </Button>
+
         </form>
     )
 }
