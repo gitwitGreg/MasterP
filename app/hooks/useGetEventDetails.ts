@@ -1,8 +1,9 @@
 import { useState, useEffect } from "react";
+import { TMEvent } from "../types";
 
 export default function useGetEventDetails(eventId: string) {
 
-    const [eventDetails, setEventDetails] = useState();
+    const [eventDetails, setEventDetails] = useState<TMEvent | undefined>();
 
     const getEventDetails = async () => {
 

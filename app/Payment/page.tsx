@@ -3,8 +3,6 @@
 import { useEffect } from "react";
 import Checkout from "../Checkout/page";
 import { convertToSubcurrency } from "../helpers";
-import useGetEventDetails from "../hooks/useGetEventDetails";
-import useGetVenueDetails from "../hooks/useGetVenueDetails";
 import getStripe from "../stripe/get-stripe";
 import { queryObj } from "../types";
 import { Elements } from '@stripe/react-stripe-js'
@@ -43,8 +41,6 @@ export default function Payment(queryObj : queryObj) {
         
     }, [stripePromise]);
 
-    const { venueDetails } = useGetVenueDetails(queryObj.searchParams.venueId);
-
     return(
         <section className="h-auto w-full p-10 tiems-center flex justify-center">
             <Elements 
@@ -55,7 +51,7 @@ export default function Payment(queryObj : queryObj) {
                 currency: 'usd',
                 
             }}>
-                <Checkout amount={100}/>
+                <Checkout amount={100} eventId={queryObj.searchParams.eventId}/>
             </Elements>
         </section>
     )

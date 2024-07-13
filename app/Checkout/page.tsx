@@ -13,7 +13,9 @@ import { error } from "console";
 import Button from "@mui/material/Button";
 import { TailSpin } from "react-loader-spinner";
 
-export default function Checkout({amount}: {amount: number}) {
+export default function Checkout({amount, eventId}: {amount: number, eventId: string}) {
+
+    console.log('from q obj: ', eventId);
 
     const stripe = useStripe();
 
@@ -67,14 +69,11 @@ export default function Checkout({amount}: {amount: number}) {
 
         makePaymentIntent()
 
-    },[amount])
-
+    },[])
 
     const handleSubmit = async(e: React.FormEvent<HTMLFormElement>) => {
 
         e.preventDefault();
-
-        console.log('after prevent default');
 
         try{
 
@@ -100,7 +99,7 @@ export default function Checkout({amount}: {amount: number}) {
             }
 
 
-            const {error} = await stripe.confirmPayment({
+            const {error: confirmError} = await stripe.confirmPayment({
 
                 elements,
 
@@ -108,16 +107,18 @@ export default function Checkout({amount}: {amount: number}) {
 
                 confirmParams: {
 
-                    return_url: `http://www.localhost:3000/confirm?amount=${amount}`
+                    return_url: `http://www.localhost:3000/Review?amount=${amount}&eventId=${eventId}`
                 }
 
             });
 
-            if(error){
+            if(confirmError){
 
-                console.log('confirm error: ', error?.message);
+                console.log('confirm error: ', confirmError?.message);
 
-                setErr(error.message);
+                console.log('error confirming order');
+
+                setErr(confirmError.message);
 
             }else{
 
@@ -155,6 +156,7 @@ export default function Checkout({amount}: {amount: number}) {
     }
 
     return (
+
         <form 
         className="w-full bg-black p-14 p-auto overflow-y-auto rounded-xl flex flex-col gap-6 text-black"
         onSubmit={handleSubmit}>
@@ -169,5 +171,6 @@ export default function Checkout({amount}: {amount: number}) {
             </Button>
 
         </form>
+
     )
 }

@@ -1,6 +1,6 @@
 import { NextResponse, NextRequest } from "next/server";
 import { connectToDb } from "@/app/mongo";
-import { FavoritedEvent, PrismaClient } from '@prisma/client'
+import { PrismaClient } from '@prisma/client'
 import { currentUser } from "@clerk/nextjs/server";
 
 

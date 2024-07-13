@@ -50,7 +50,7 @@ const SearchResultsDisplay = () => {
 
           {foundData[0]?.images && (
             <img 
-            src={foundData[2].images[5].url}
+            src={foundData[0].images[5].url}
   
             alt={"Event performer image"}
             className='w-[150px] h-[100px]'/>
@@ -79,7 +79,7 @@ const SearchResultsDisplay = () => {
 
               }} className='flex items-center p-5'>
 
-                <p className='font-semibold'>{convertDate(event.dates.start.localDate)}</p>
+                <p className='font-semibold'>{convertDate(event.dates.start.localDate) || 'No local date yet'}</p>
 
                 <div key={event.id} className='flex gap-4 border-b p-10 items-center w-full'>
 
@@ -113,7 +113,7 @@ const SearchResultsDisplay = () => {
                       <div>
                         <p>{'Missing adress details'}</p>
 
-                        <p>{convertTime(event.dates.start.localTime)}</p>
+                        <p>{convertTime(event.dates.start.localTime) || 'No local time yet'}</p>
 
                         <p>{event.dates.timezone}</p>
                       </div>

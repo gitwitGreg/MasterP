@@ -31,3 +31,10 @@ model FavoritedEvent {
   address String
   userId String
 }
+
+model PurchasedEvent {
+  id String @id @default(auto()) @map("_id") @db.ObjectId
+  eventId String
+  stipeClientSecret String
+  amount Int
+}
