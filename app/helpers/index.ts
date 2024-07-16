@@ -16,6 +16,10 @@ export function shortenString(str: string) {
 /** Converts strings time stamp to formated 12 hour intervals */
 export function convertTime(time24: string) {
 
+    if(!time24){
+        return 'Event time is currently unavailable'
+    }
+
     const [hour, minute, second] = time24.split(':').map(Number);
 
     const hour12 = hour % 12 || 12;

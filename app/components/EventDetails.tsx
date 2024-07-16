@@ -260,6 +260,8 @@ const EventDetails = ({event}: {event: TMEvent}) => {
 
                                 venueId: event?._embedded?.venues[0]?.id,
 
+                                amount : Number(event.priceRanges[0].max) || 0
+
                             }
 
                         }}>

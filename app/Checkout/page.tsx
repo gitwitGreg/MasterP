@@ -15,8 +15,8 @@ import { TailSpin } from "react-loader-spinner";
 
 export default function Checkout({amount, eventId}: {amount: number, eventId: string}) {
 
-    console.log('from q obj: ', eventId);
-
+    console.log(amount);
+    
     const stripe = useStripe();
 
     const elements = useElements();
@@ -24,7 +24,6 @@ export default function Checkout({amount, eventId}: {amount: number, eventId: st
     const [err, setErr] = useState<string>();
 
     const [clientSecret, setClientsecret] = useState('');
-
 
     const [loading, setLoading] = useState(false);
 

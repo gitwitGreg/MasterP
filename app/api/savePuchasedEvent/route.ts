@@ -10,15 +10,19 @@ import { connectToDb } from "@/app/mongo";
 
 export async function POST(req: NextRequest) {
 
-    console.log('api pahgeefdknslkanf')
-
     /** Convert request to json */
     const body = await req.json();
 
     /** Deconstruct needed propreties  */
-    const { eventId, clientSecret, amount } = body;
-
-    console.log(eventId, clientSecret, amount);
+    const { 
+        eventId, 
+        clientSecret, 
+        amount, 
+        name,
+        price,
+        location,
+        date
+    } = body;
 
     /** Connect to database */
     await connectToDb();
@@ -36,8 +40,7 @@ export async function POST(req: NextRequest) {
 
                 stipeClientSecret: clientSecret,
 
-                amount: Number(amount)
-
+                amount: Number(price)
 
             }
         });
@@ -60,7 +63,17 @@ export async function POST(req: NextRequest) {
 
                 stipeClientSecret: clientSecret,
 
-                amount: Number(amount)
+                amount: Number(amount),
+
+                name: name,
+
+                price: Number(price) || 0,
+
+                location: location || 'No location information yet',
+
+                date: date || 'No Event date information yet',
+
+                createdAt: '0'
 
             }
 

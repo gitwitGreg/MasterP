@@ -1,16 +1,18 @@
-'use client';
+'use client'
 
 import { useSearchParams } from 'next/navigation';
-import { useEffect } from 'react';
+import { useEffect, useState } from 'react';
 import CheckIcon from '@mui/icons-material/Check';
 import { useUser } from '@clerk/nextjs';
 import useGetEventDetails from '../hooks/useGetEventDetails';
-import { TMEvent } from '../types';
 import { TailSpin } from 'react-loader-spinner';
 import { Button } from '@/components/ui/button';
 import Link from 'next/link';
 
 export default function Review() {
+
+  const [savedInDb, setSavedInDb] = useState<boolean>(false);
+
   const search = useSearchParams();
 
   const amount = search.get('amount');
@@ -21,15 +23,23 @@ export default function Review() {
 
   const clientSecret = search.get('payment_intent_client_secret');
 
-  console.log(eventDetails);
-
   const user = useUser().user;
 
   const saveToDb = async (eventId: string) => {
 
+    if(!eventDetails){
+
+      console.log('Missing event details');
+
+      return;
+
+    }
+
     try {
 
-      const response = await fetch('api/savePuchasedEvent', {
+      console.log('before we make an api call');
+
+      const response = await fetch('/api/savePuchasedEvent', {
 
         method: 'POST',
 
@@ -38,22 +48,42 @@ export default function Review() {
         },
 
         body: JSON.stringify({
-            eventId: eventId,
 
-            clientSecret: clientSecret,
+          eventId: eventId,
 
-            amount: amount,
-            }),
+          clientSecret: clientSecret,
+
+          amount: amount,
+
+          name: eventDetails.name,
+
+          price: eventDetails.priceRanges[0].max,
+
+          location: eventDetails._embedded.venues[0].address.line1,
+
+          date: eventDetails.dates.start.localDate
+
+          }),
+
         });
 
         if (!response.ok) {
 
-            const error: { message: string } = await response.json();
+          const error: { message: string } = await response.json();
 
-            console.log(error);
+          console.log(error);
 
-            return;
+          return;
+          
         }
+
+        const resObj = await response.json();
+
+        console.log('setting to true after saving');
+
+        setSavedInDb(true);
+
+        return;
 
     } catch (error) {
 
@@ -66,14 +96,13 @@ export default function Review() {
 
   useEffect(() => {
 
-    if (eventId) {
+    if(!savedInDb && eventDetails){
 
-      console.log(eventId);
+      saveToDb(eventId as string);
 
-      saveToDb(eventId);
     }
-  }, [eventId]);
-
+    
+  },[eventDetails]);
 
   if (!eventDetails) {
 

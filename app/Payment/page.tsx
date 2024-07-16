@@ -19,6 +19,8 @@ const stripePromise = loadStripe(process.env.NEXT_PUBLIC_STRIPE_PUBLISHABLE_KEY)
 
 export default function Payment(queryObj : queryObj) {
 
+    console.log('payment page: ', queryObj.searchParams.amount);
+
     useEffect(() => {
 
         const logStripe = async () => {
@@ -51,7 +53,7 @@ export default function Payment(queryObj : queryObj) {
                 currency: 'usd',
                 
             }}>
-                <Checkout amount={100} eventId={queryObj.searchParams.eventId}/>
+                <Checkout amount={queryObj.searchParams.amount} eventId={queryObj.searchParams.eventId}/>
             </Elements>
         </section>
     )

@@ -130,5 +130,6 @@ export interface queryObj {
     searchParams: {
         eventId: string,
         venueId: string,
+        amount: number
     },
 }
