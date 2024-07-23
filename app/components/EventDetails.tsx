@@ -144,200 +144,182 @@ const EventDetails = ({event}: {event: TMEvent}) => {
 
     }
 
+    if(!event){
+      return (
+        <div>
+          
+        </div>
+      )
+    }
+
   return (
+    <div className="w-full h-screen flex flex-col gap-2">
+      <div
+        style={{
+          backgroundImage: `url(${
+            event.images ? event.images[0].url : ''
+          })`,
+        }}
+        className="h-[40%] w-full p-16 bg-no-repeat bg-cover"
+      >
+        <p className="mb-4 text-sm text-white">Home/Event/{event.name}</p>
 
-    <div className='w-full h-screen flex flex-col gap-2'>
+        <div className="flex gap-4 w-auto h-auto">
+          <img
+            src={event.images ? event.images[0].url : ''}
+            className="h-[150px] w-[300px] object-cover"
+          />
 
-        <div style={{ backgroundImage: `url(${event.images[0].url})` || '' }}
-        className='h-[40%] w-full p-16 bg-no-repeat bg-cover'>
+          <div className="flex flex-col gap-5 w-auto h-auto">
+            <h1 className="text-2xl font-bold text-white mt-4 font-mono">
+              {event.name}
+            </h1>
 
-            <p className='mb-4 text-sm text-white'>Home/Event/{event.name}</p>
-
-            <div className='flex gap-4 w-auto h-auto'>
-
-                <img src={event.images? event.images[0].url : ''} className='h-[150px] w-[300px] object-cover' />
-
-                <div className='flex flex-col gap-5 w-auto h-auto'>
-
-                    <h1 className='text-2xl font-bold text-white mt-4 font-mono'>
-
-                        {event.name}
-
-                    </h1>
-
-                    <div className='text-2xl'>
-
-                        {isFavorite!= undefined && (
-                            <button onClick={ () => faviorateEvent({
-                                eventId: event.id,
-                                name: event.name,
-                                date: event.dates.start.localDate,
-                                venue: event.name,
-                                promoter: event.promoter.name,
-                                address: event._embedded.venues[0].address.line1,
-                            })}>
-    
-                                <FavoriteBorderIcon className={isFavorite? `'text-2xl cursor-pointer text-red-500`: `'text-2xl cursor-pointer text-white`}/>
-    
-                            </button>
-                        )}
-
-                    </div>
-
-                </div>
-
+            <div className="text-2xl">
+              {isFavorite != undefined && (
+                <button
+                  onClick={() =>
+                    faviorateEvent({
+                      eventId: event.id,
+                      name: event.name,
+                      date: event.dates.start.localDate,
+                      venue: event.name,
+                      promoter: event.promoter.name,
+                      address: event._embedded.venues[0].address.line1,
+                    })
+                  }
+                >
+                  <FavoriteBorderIcon
+                    className={
+                      isFavorite
+                        ? `'text-2xl cursor-pointer text-red-500`
+                        : `'text-2xl cursor-pointer text-white`
+                    }
+                  />
+                </button>
+              )}
             </div>
-        
+          </div>
+        </div>
+      </div>
+
+      <div className="w-full h-[70px] shadow p-4 gap-10 flex items-center">
+        <p className="text-black text underline text-xl cursor-pointer">
+          {' '}
+          Event
+        </p>
+      </div>
+
+      <div className="h-screen w-full bg-gray-50 p-5 flex flex-col gap-8">
+        <h1 className="text-2xl font-bold text-black mt-4">Events</h1>
+
+        <div className="w-[70%] h-auto p-3 gap-2 bg-white border-gray-50 border rounded-md">
+          <div className="border p-4 flex gap-10 w-auto">
+            <NearMeIcon />
+
+            <p>
+              {event?._embedded?.venues[0]?.name || 'No venue information yet'}
+            </p>
+          </div>
+
+          <div className="border p-4 flex gap-10 bg-white">
+            <CalendarMonthIcon />
+
+            <div className="flex gap-4 flex-col">
+              <div className="flex gap-2">
+                {event.dates && (<p>{event.dates.start.localDate || 'No Date yet'}</p>)}
+
+                {event.dates? 
+                  <p>{convertTime(event.dates.start.localTime)}</p>
+                 : <p>No Time available</p>
+                }
+
+                <ErrorOutlineIcon />
+              </div>
+
+              <p className="font-bold">{event.dates.timezone || 'No time zone'}</p>
+
+              <p className="text-gray-500">{event.name}</p>
+            </div>
+          </div>
         </div>
 
-        <div className='w-full h-[70px] shadow p-4 gap-10 flex items-center'>
+        <div className="w-[90%] h-auto p-3 gap-2 bg-white border-gray-50 border rounded-md flex">
+          <div className="border flex  justify-between w-full p-5">
+            <div className="flex gap-4">
+              <NearMeIcon />
 
-            <p className='text-black text underline text-xl cursor-pointer'> Event</p>
-
-        </div>
-
-        <div className='h-screen w-full bg-gray-50 p-5 flex flex-col gap-8'>
-
-            <h1 className='text-2xl font-bold text-black mt-4'>Events</h1>
-
-            <div className='w-[70%] h-auto p-3 gap-2 bg-white border-gray-50 border rounded-md'>
-
-                <div className='border p-4 flex gap-10 w-auto'>
-
-                    <NearMeIcon />
-
-                    <p>{event?._embedded?.venues[0]?.name || 'No venue information yet'}</p>
-
-                </div>
-
-                <div className='border p-4 flex gap-10 bg-white'>
-
-                    <CalendarMonthIcon />
-
-                    <div className='flex gap-4 flex-col'>
-
-                        <div className='flex gap-2'>
-
-                            <p>{event.dates.start.localDate}</p>
-
-                            <p>{convertTime(event.dates.start.localTime)}</p>
-
-                            <ErrorOutlineIcon />
-
-                        </div>
-
-                        <p className='font-bold'>{event.dates.timezone}</p>
-
-                        <p className='text-gray-500'>{event.name}</p>
-
-                    </div>
-                    
-                </div>
-
+              <p>
+                {event?._embedded?.venues[0]?.name ||
+                  'No venue information yet'}
+              </p>
             </div>
 
-            <div className='w-[90%] h-auto p-3 gap-2 bg-white border-gray-50 border rounded-md flex'>
+            <div className="w-auto">
+              {event.priceRanges && event.priceRanges[0].max && (
+                <Link
+                  href={{
+                    pathname: '/Payment',
 
-                <div className='border flex  justify-between w-full p-5'>
+                    query: {
+                      eventId: event.id,
 
-                    <div className='flex gap-4'>
-                        
-                        <NearMeIcon />
+                      venueId: event?._embedded?.venues[0]?.id,
 
-                        <p>{event?._embedded?.venues[0]?.name || 'No venue information yet'}</p>
-
-                    </div>
-
-                    <div className='w-auto'>
-
-                        <Link href={{
-
-                            pathname: '/Payment',
-
-                            query: {
-
-                                eventId: event.id,
-
-                                venueId: event?._embedded?.venues[0]?.id,
-
-                                amount : Number(event.priceRanges[0].max) || 0
-
-                            }
-
-                        }}>
-                            <ShoppingCartIcon className='hover:text-white ease-in'/>
-
-                        </Link>
-
-                    </div>
-
-                </div>
-
-                <div className='border p-4 flex gap-10 w-full items-center justify-center'>
-
-                    <SellIcon/>
-
-                    {event.priceRanges && event.priceRanges.length > 0 ? (
-
-                        <p>${event.priceRanges[0].min} - ${event.priceRanges[0].max}</p>
-
-                    ) : (
-
-                        <p>No price range available</p>
-
-                    )}
-
-
-                </div>
-
+                      amount: Number(
+                        event.priceRanges ? event.priceRanges[0].max : 0
+                      ),
+                    },
+                  }}
+                >
+                  <ShoppingCartIcon className="hover:text-white ease-in" />
+                </Link>
+              )}
             </div>
+          </div>
 
-            {event.products && (
+          <div className="border p-4 flex gap-10 w-full items-center justify-center">
+            <SellIcon />
 
-                <div className=' bg-white w-full h-auto p-5 gap-5 flex flex-col overflow-scroll'>
-
-                    {event.products.map((varitation) => (
-
-                        <Link href={varitation.url} key={varitation.id}>
-
-                            <div className='w-full h-auto border p-5 flex flex-col' >
-
-                                <p className='font-bold'>{varitation.name}</p>
-
-                                <p className='text-gray-500'>{varitation.type}</p>
-
-                                <p> Provider: Live nation</p>
-
-                            </div>
-
-                        </Link>
-
-                    ))}
-
-                </div>
+            {event.priceRanges && event.priceRanges.length > 0 ? (
+              <p>
+                ${event.priceRanges[0].min || 0} - $
+                {event.priceRanges[0].max || 0}
+              </p>
+            ) : (
+              <p>No price range available</p>
             )}
-
+          </div>
         </div>
 
-        {seatmap && (
+        {event.products && (
+          <div className=" bg-white w-full h-auto p-5 gap-5 flex flex-col overflow-scroll">
+            {event.products.map((varitation) => (
+              <Link href={varitation.url} key={varitation.id}>
+                <div className="w-full h-auto border p-5 flex flex-col">
+                  <p className="font-bold">{varitation.name}</p>
 
-            <div className='w-full h-auto bg-white p-5 border border-gray-200 rounded-md'>
+                  <p className="text-gray-500">{varitation.type}</p>
 
-                <h2 className='text-xl font-bold mb-4'>Seat Map</h2>
-
-                <div className='flex justify-center'>
-
-                    <img src={seatmap} alt='Seat Map' className='max-w-full h-auto' />
-
+                  <p> Provider: Live nation</p>
                 </div>
-
-            </div>
-
+              </Link>
+            ))}
+          </div>
         )}
+      </div>
 
+      {seatmap && (
+        <div className="w-full h-auto bg-white p-5 border border-gray-200 rounded-md">
+          <h2 className="text-xl font-bold mb-4">Seat Map</h2>
+
+          <div className="flex justify-center">
+            <img src={seatmap} alt="Seat Map" className="max-w-full h-auto" />
+          </div>
+        </div>
+      )}
     </div>
-
-  )
+  );
 
 }
 

@@ -133,3 +133,66 @@ export interface queryObj {
         amount: number
     },
 }
+
+export interface Suggested {
+
+    page: {
+        size: number
+        totalElements: number,
+        totalPages: number,
+    },
+
+    _embedded: {
+
+        attractions: {
+
+            classifications: {
+                family: false,
+                genre: string
+                primary: string
+                segment: {id: string, name: string},
+                subGenere: {id: string, name: string},
+                subType: {id: string, name: string},
+                type: {id: string, name: string}
+
+            },
+
+            externalLink: {
+                facebook: {url: string}[],
+                youtube: {url: string}[],
+            },
+
+            images: {
+                fallback: false,
+                height: number,
+                ratio: string,
+                url: string,
+                width: number
+            }[]
+
+            local: string,
+            name: string,
+            type: string,
+            url: string,
+            id: string,
+
+        }[]
+
+        venues: {
+            accesibleSeatingDetails: string,
+            adress: {line1: string}
+            boxOfficeInfo: {phoneNumberDetails: string}
+            city: {name: string}
+            country: {name: string}
+            generalInfo: {generalRule: string, id: string}
+            id: string,
+            name: string,
+            postalCode: string,
+            state: {name: string, stateCode: string}
+            timezone: string
+        }[]
+
+        events: TMEvent[]
+
+    }
+}

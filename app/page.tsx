@@ -11,16 +11,11 @@ export default async function Home() {
 
   const user = await currentUser();
 
-  /** Search component to search for specific events */
-
   /** Show popular events */
-
-  /** Show closest events */
 
   /** Show a few planned events */
 
   if(!user){
-
     return(
       <div>
          Something went wrong refresh app

@@ -37,8 +37,6 @@ export default function Review() {
 
     try {
 
-      console.log('before we make an api call');
-
       const response = await fetch('/api/savePuchasedEvent', {
 
         method: 'POST',

@@ -30,7 +30,7 @@ export default function useGetEventDetails(eventId: string) {
 
                 const errorObj: {error: string} = await response.json();
 
-                console.log(errorObj.error);
+                setEventDetails(undefined)
             }
 
             const events = await response.json();

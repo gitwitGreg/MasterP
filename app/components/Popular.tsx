@@ -1,8 +1,8 @@
+import Trending from "./Trending"
+
 const Popular = () => {
   return (
-    <div>
-      Popular
-    </div>
+    <Trending /> 
   )
 }
 
