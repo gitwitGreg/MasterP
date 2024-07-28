@@ -237,7 +237,9 @@ const EventDetails = ({event}: {event: TMEvent}) => {
                 <ErrorOutlineIcon />
               </div>
 
-              <p className="font-bold">{event.dates.timezone || 'No time zone'}</p>
+              {event.dates && (
+                <p className="font-bold">{event.dates.timezone || 'No time zone'}</p>
+              )}
 
               <p className="text-gray-500">{event.name}</p>
             </div>

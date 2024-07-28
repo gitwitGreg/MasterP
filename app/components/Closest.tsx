@@ -4,6 +4,7 @@ import { useEffect, useState } from 'react';
 import useFindUserLocation from '../hooks/useFindUserLocation'
 import { Coordinates, TMEvent } from '../types';
 import { EventDisplay } from './EventDisplay';
+import Planned from './Planned';
 
 const Closest = () => {
 
@@ -58,7 +59,7 @@ const Closest = () => {
   },[coordinates]);
 
   return (
-    <div>
+    <div className='h-auto w-full flex gap-4'>
       <EventDisplay events={events}/>
     </div>
   )

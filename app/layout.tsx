@@ -30,8 +30,8 @@ export default function RootLayout({
           </header>
           <SignedOut>
           <div className="flex-grow flex justify-center items-center h-sceeen w-full h-screen">
-              <SignIn routing='hash'/>
-            </div>
+            <SignIn routing='hash'/>
+          </div>
           </SignedOut>
           <SignedIn>
             <DataProvider>

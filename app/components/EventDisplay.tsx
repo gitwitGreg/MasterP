@@ -34,7 +34,8 @@ export const EventDisplay = ({events}: {events: TMEvent[] | undefined}) => {
     }
 
     return (
-        <div className="h-screen w-full">
+
+        <div className="h-auto w-full px-4 mb-4 items-center justify-center flex">
 
             <Carousel
             opts={{
@@ -42,11 +43,12 @@ export const EventDisplay = ({events}: {events: TMEvent[] | undefined}) => {
             }}
             className="w-full max-w-xs"
             >
+                
                 <CarouselContent>
 
                     {events.map((event, index) => (
 
-                    <CarouselItem key={index} className="md:basis-1/2 lg:basis-1/3">
+                    <CarouselItem key={index} className="flex-shrink-0 w-full md:w-1/2 lg:w-1/3 px-2">
 
                         <div className="p-1">
 

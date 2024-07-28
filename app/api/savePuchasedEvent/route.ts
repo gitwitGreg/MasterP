@@ -1,6 +1,7 @@
 import { NextResponse, NextRequest } from "next/server";
 import { PrismaClient } from "@prisma/client";
 import { connectToDb } from "@/app/mongo";
+import { currentUser } from "@clerk/nextjs/server";
 
 /**
  * 
@@ -9,6 +10,16 @@ import { connectToDb } from "@/app/mongo";
  */
 
 export async function POST(req: NextRequest) {
+
+    /** Find user */
+    const user = await currentUser();
+
+    if(!user){
+
+        console.log('Error finding user');
+
+        return NextResponse.json({error: 'Error finding user'});
+    }
 
     /** Convert request to json */
     const body = await req.json();
@@ -73,7 +84,9 @@ export async function POST(req: NextRequest) {
 
                 date: date || 'No Event date information yet',
 
-                createdAt: '0'
+                createdAt: '0',
+
+                user: user.id
 
             }
 

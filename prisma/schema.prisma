@@ -34,6 +34,7 @@ model FavoritedEvent {
 
 model PurchasedEvent {
   id String @id @default(auto()) @map("_id") @db.ObjectId
+  user String
   eventId String @unique
   stipeClientSecret String
   amount Int?
