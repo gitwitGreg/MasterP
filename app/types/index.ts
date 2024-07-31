@@ -196,3 +196,10 @@ export interface Suggested {
 
     }
 }
+
+export interface calanderEvent {
+    title: string,
+    start: string,
+    end: string,
+    id: string,
+}

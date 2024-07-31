@@ -28,6 +28,7 @@ const Favorites = () => {
 
         <Link 
         key={event.eventId}
+        className='hover:border-2 hover:border-gray-200 hover:rounded-xl ease-in hover:bg-white'
         href={{
           pathname: '/Event',
           query: {

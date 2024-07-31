@@ -10,6 +10,7 @@ import {
 import { Card, CardContent } from "@/components/ui/card";
 import { shortenString } from "../helpers";
 import Link from "next/link";
+import Planned from "./Planned";
   
 
 
@@ -35,7 +36,7 @@ export const EventDisplay = ({events}: {events: TMEvent[] | undefined}) => {
 
     return (
 
-        <div className="h-auto w-full px-4 mb-4 items-center justify-center flex">
+        <div className="h-auto w-full px-4 mb-4 items-center justify-center flex gap-20 overflow-auto">
 
             <Carousel
             opts={{
@@ -91,6 +92,8 @@ export const EventDisplay = ({events}: {events: TMEvent[] | undefined}) => {
                 <CarouselNext />
 
             </Carousel>
+
+            <Planned />
 
         </div>
     )
