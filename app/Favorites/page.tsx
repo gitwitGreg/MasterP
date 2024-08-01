@@ -14,7 +14,9 @@ export default function FavoritesPage() {
             </div>
 
             <div className=" w-full flex justify-center h-auto">
+
                 <Favorites />
+                
             </div>
 
         </div>

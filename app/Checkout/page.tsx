@@ -12,8 +12,9 @@ import { convertToSubcurrency } from "../helpers"
 import { error } from "console";
 import Button from "@mui/material/Button";
 import { TailSpin } from "react-loader-spinner";
+import { checkoutObj } from "../types";
 
-export default function Checkout({amount, eventId}: {amount: number, eventId: string}) {
+export default function Checkout({amount, eventId}: checkoutObj) {
 
     console.log(amount);
     

@@ -203,3 +203,8 @@ export interface calanderEvent {
     end: string,
     id: string,
 }
+
+export interface checkoutObj {
+    amount: number,
+    eventId: string
+}
