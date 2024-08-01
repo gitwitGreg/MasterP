@@ -4,7 +4,6 @@ import Closest from "./components/Closest";
 import Planned from "./components/Planned";
 import FooterComp from "./components/FooterComp";
 
-
 export default async function Home() {
 
   return (

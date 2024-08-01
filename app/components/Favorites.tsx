@@ -1,15 +1,18 @@
+'use client'
+
 import React from 'react'
 import useFetchFavorites from '../hooks/useFetchFavorites'
 import Link from 'next/link';
 
-const Favorites = () => {
+ export const Favorites = () => {
 
   const { favorites } = useFetchFavorites();
 
+
   if(!favorites){
     return(
-      <div>
-        No events favorites
+      <div className=' flex border-2 bg-gray-100 justify-center p-12'>
+        <h1>No events favorites Yet</h1>
       </div>
     )
   }
@@ -20,7 +23,11 @@ const Favorites = () => {
 
       <div className='flex flex-col items-center justify-center'>
 
-        <h1 className='font-bold text-xl'>Favorites</h1>
+        <Link href='/Favorites'>
+
+          <h1 className='font-bold text-xl'>Favorites</h1>
+
+        </Link>
         
       </div>
 
@@ -28,7 +35,7 @@ const Favorites = () => {
 
         <Link 
         key={event.eventId}
-        className='hover:border-2 hover:border-gray-200 hover:rounded-xl ease-in hover:bg-white'
+        className='hover:border-2 hover:border-gray-200 hover:rounded-xl ease-in hover:bg-white hover:underline-offset-4'
         href={{
           pathname: '/Event',
           query: {
