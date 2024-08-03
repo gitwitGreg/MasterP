@@ -206,5 +206,5 @@ export interface calanderEvent {
 
 export interface checkoutObj {
     amount: number,
-    eventId: string
+    eventId: string,
 }
