@@ -9,7 +9,6 @@ import { Elements } from '@stripe/react-stripe-js'
 import { loadStripe } from "@stripe/stripe-js";
 
 
-
 if(!process.env.NEXT_PUBLIC_STRIPE_PUBLISHABLE_KEY){
     throw Error("Missing stripe publishable name");
 }
@@ -19,6 +18,11 @@ const stripePromise = loadStripe(process.env.NEXT_PUBLIC_STRIPE_PUBLISHABLE_KEY)
 export default function Payment(queryObj : queryObj) {
 
     console.log('payment page: ', queryObj.searchParams.amount);
+
+    const checkoutObj = {
+        amount: queryObj.searchParams.amount,
+        eventId: queryObj.searchParams.eventId
+    }
 
     useEffect(() => {
 
@@ -59,7 +63,7 @@ export default function Payment(queryObj : queryObj) {
                 currency: 'usd',
                 
             }}>
-                <Checkout amount={queryObj.searchParams.amount} eventId={queryObj.searchParams.eventId}/>
+                <Checkout checkoutObj={checkoutObj}/>
             </Elements>
         </section>
     )

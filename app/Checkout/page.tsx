@@ -4,14 +4,20 @@ import CheckComp from "../components/CheckComp";
 
 
 
-export default function Checkout({amount, eventId} : checkoutObj) {
+interface CheckoutProps {
+    checkoutObj: checkoutObj
+}
+
+
+
+export default function Checkout( {checkoutObj} : CheckoutProps) {
     
 
     return (
 
         <CheckComp 
-        amount={amount}
-        eventId={eventId}
+        amount={checkoutObj.amount}
+        eventId={checkoutObj.eventId}
         />
 
     )
