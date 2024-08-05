@@ -15,15 +15,7 @@ if(!process.env.NEXT_PUBLIC_STRIPE_PUBLISHABLE_KEY){
 
 const stripePromise = loadStripe(process.env.NEXT_PUBLIC_STRIPE_PUBLISHABLE_KEY);
 
-
-interface PaymentProps {
-    searchParams: {
-        amount: number;
-        eventId: string;
-    };
-}
-
-const Payment: React.FC<PaymentProps> = (queryObj : queryObj)  => {
+export default function Payment (queryObj: queryObj) {
 
     console.log('payment page: ', queryObj.searchParams.amount);
 
@@ -75,10 +67,8 @@ const Payment: React.FC<PaymentProps> = (queryObj : queryObj)  => {
                 currency: 'usd',
                 
             }}>
-                <Checkout checkoutObj={checkoutObj}/>
+                <Checkout />
             </Elements>
         </section>
     )
 }
-
-export default Payment;

@@ -1,20 +1,8 @@
-'use clinet'
+'use client'
 import React, { useEffect} from "react"
-import { checkoutObj } from "../types";
 import CheckComp from "../components/CheckComp";
 import { useSearchParams } from 'next/navigation'
 import { TailSpin } from "react-loader-spinner";
-
-
-
-interface pageProps {
-    params: {slug: string};
-    searchParams: {[key: string]: string| string[] | undefined}
-
-    
-}
-
-
 
 export default function Checkout() {
 
