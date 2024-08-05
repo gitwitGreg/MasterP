@@ -15,7 +15,15 @@ if(!process.env.NEXT_PUBLIC_STRIPE_PUBLISHABLE_KEY){
 
 const stripePromise = loadStripe(process.env.NEXT_PUBLIC_STRIPE_PUBLISHABLE_KEY);
 
-export default function Payment(queryObj : queryObj) {
+
+interface PaymentProps {
+    searchParams: {
+        amount: number;
+        eventId: string;
+    };
+}
+
+const Payment: React.FC<PaymentProps> = (queryObj : queryObj)  => {
 
     console.log('payment page: ', queryObj.searchParams.amount);
 
@@ -48,9 +56,13 @@ export default function Payment(queryObj : queryObj) {
 
 
     if(queryObj.searchParams.amount === 0){
-        return (<div>
+
+        return (
+        <div>
             No moneyy
-        </div>)
+        </div>
+        )
+        
     }
 
     return(
@@ -68,3 +80,5 @@ export default function Payment(queryObj : queryObj) {
         </section>
     )
 }
+
+export default Payment;
