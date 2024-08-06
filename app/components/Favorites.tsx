@@ -8,6 +8,8 @@ import Link from 'next/link';
 
   const { favorites } = useFetchFavorites();
 
+  console.log('favs: ', favorites);
+
 
   if(!favorites){
     return(

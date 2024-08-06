@@ -41,7 +41,8 @@ export async function GET () {
 
             return NextResponse.json([]);
 
-        }2
+        }
+
 
         /** Return array of favorite events */
         return NextResponse.json(favoritedEvents)

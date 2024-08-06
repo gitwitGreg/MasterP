@@ -53,6 +53,7 @@ const Trending = () => {
             {suggested._embedded.attractions[3].name}
           </h1>
           <Link
+          className=''
             href={{
               pathname: 'Event',
               query: {
@@ -60,7 +61,7 @@ const Trending = () => {
               },
             }}
           >
-            <Button className="bg-blue-700 text-white h-[50px] w-[20%] font-bold ease-in hover:bg-blue-800">
+            <Button className=" bg-blue-700 text-white h-[50px] w-[20%] font-bold ease-in hover:bg-blue-800">
               Find Tickets
             </Button>
           </Link>
@@ -73,25 +74,37 @@ const Trending = () => {
 
           {suggested._embedded.attractions.slice(0,4).map((attraction) => (
 
-            <div className="relative flex flex-col gap-4 hover:underline underline-offset-2" key={attraction.id}>
+            <Link href={{
 
-              <div className="relative">
+              pathname: '/Event',
 
-                    <img
-                    src={attraction.images[0].url}
-                    height={300}
-                    width={900}
-                    alt="Attraction image"
-                    className="relative h-[300px] w-[900px] object-cover"
-                    />
+              query:{
+                eventId: attraction.url
+              }
 
-                    <div className="absolute inset-0 bg-black bg-opacity-0 hover:bg-opacity-50 transition-opacity hover: cursor-pointer"></div>
+            }}>
 
-                </div>
+              <div className="relative flex flex-col gap-4 hover:underline underline-offset-2" key={attraction.id}>
 
-                <h1 className='text-xl antialiased font-semibold'>{attraction.name}</h1>
+                <div className="relative">
 
-            </div>
+                      <img
+                      src={attraction.images[0].url}
+                      height={300}
+                      width={900}
+                      alt="Attraction image"
+                      className="relative h-[300px] w-[900px] object-cover"
+                      />
+
+                      <div className="absolute inset-0 bg-black bg-opacity-0 hover:bg-opacity-50 transition-opacity hover: cursor-pointer"></div>
+
+                  </div>
+
+                  <h1 className='text-xl antialiased font-semibold'>{attraction.name}</h1>
+
+              </div>
+
+            </Link>
 
             ))}
 

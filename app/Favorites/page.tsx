@@ -4,7 +4,9 @@ import FooterComp from "../components/FooterComp"
 export default function FavoritesPage() {
     
     return(
+
         <>
+        
         <div className="flex h-screen w-full flex-col gap-20 overflow-auto">
 
             <div className="flex justify-center w-full h-auto p-20 bg-black text-white">

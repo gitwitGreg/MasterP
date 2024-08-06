@@ -22,7 +22,8 @@ export default function useFetchFavorites() {
             });
 
             if(!response.ok){
-                setFavorites(undefined)
+                setFavorites(undefined);
+                console.log('something went wrong');
             }
 
             const resObj = await response.json();

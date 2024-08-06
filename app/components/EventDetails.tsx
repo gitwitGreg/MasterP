@@ -16,7 +16,7 @@ import SellIcon from '@mui/icons-material/Sell';
 
 const EventDetails = ({event}: {event: TMEvent}) => {
 
-    console.log(event);
+  console.log('is favorite: ', isFavorite);
 
     const { isFavorited }: FavoritedInfo = useGetFavoriteEvents(event.id);
 
